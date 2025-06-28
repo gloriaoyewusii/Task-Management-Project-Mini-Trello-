@@ -43,7 +43,7 @@ class BoardService:
         board = BoardRepository.get_board_by_id(board_id)
         if not board:
             raise BoardNotFoundError(f'Board with ID {board_id} not found')
-        return board.to_dict()
+        return board
 
     @staticmethod
     def delete_board(board_id):

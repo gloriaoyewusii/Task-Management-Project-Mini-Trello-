@@ -37,3 +37,13 @@ class TaskRepository:
             raise TaskNotFoundError(f'Task with the ID {task_id} not found')
         return task
 
+    @staticmethod
+    def update_task(task_id, data):
+        task = Task.objects(id=task_id).first()
+        if not task:
+            return None
+        task.update(**data)
+        task.reload()
+        return task
+
+
