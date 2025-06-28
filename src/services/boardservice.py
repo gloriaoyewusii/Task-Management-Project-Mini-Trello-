@@ -23,13 +23,13 @@ class BoardService:
             raise ExistingBoardError(f'Board with board title {title} already exists')
         board_owner = UserRepository.get_user_by_id(owner)
         if not board_owner:
-            raise UserNotFoundError(f"Owner with ID '{owner}' does not exist.")
+            raise UserNotFoundError(f'Owner with ID {owner} does not exist.')
 
         board_members_validated = []
         for member_id in board_members:
             user = UserRepository.get_user_by_id(member_id)
             if not user:
-                raise UserNotFoundError(f"Board member with ID '{member_id}' does not exist.")
+                raise UserNotFoundError(f'Board member with ID {member_id} does not exist.')
             board_members_validated.append(user)
         try:
             board = BoardRepository.create_board(title, description, owner, board_members_validated)
@@ -53,7 +53,7 @@ class BoardService:
         try:
             deletion_outcome = board.delete()
             if deletion_outcome:
-                return f"Board with ID '{board_id}' was successfully deleted."
-            return f"Board with ID '{board_id}' was not successfully deleted."
+                return f'Board with ID {board_id} was successfully deleted.'
+            return f'Board with ID {board_id} was not successfully deleted.'
         except Exception as e:
             raise BoardDeletionError(str(e))
