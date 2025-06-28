@@ -1,38 +1,41 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from src.exceptions.user_not_found_error import UserNotFoundError
-from src.models.task import Task
+from src.models.boarduser import BoardUser
 
 
 class UserRepository:
 
     @staticmethod
-    def create_user(username, email, password):
+    def create_user(username, email, password, is_active, created_at, updated_at):
         hashed_password = generate_password_hash(password)
-        user = Task(
+        board_user = BoardUser(
             username=username,
             email=email,
-            password=hashed_password
+            password=hashed_password,
+            is_active=is_active,
+            created_at=created_at,
+            updated_at=updated_at
         )
-        user.save()
-        return user
+        board_user.save()
+        return board_user
 
     @staticmethod
     def get_user_by_username(username):
-        return Task.objects(username=username).first()
+        return BoardUser.objects(username=username).first()
 
     @staticmethod
     def get_user_by_email(email):
-        return Task.objects(email=email).first()
+        return BoardUser.objects(email=email).first()
 
     @staticmethod
     def get_user_by_id(id_user):
-        return Task.objects(id=id_user).first()
+        return BoardUser.objects(id=id_user).first()
 
     @staticmethod
     def authenticate_user(email, password):
-        user = UserRepository.get_user_by_email(email)
-        password_check = check_password_hash(user.password, password)
+        board_user = UserRepository.get_user_by_email(email)
+        password_check = check_password_hash(board_user.password, password)
         if not password_check:
             raise UserNotFoundError(f'Incorrect username or password')
-        return user
+        return board_user
