@@ -1,10 +1,6 @@
 import datetime
 
 from src.exceptions.board_not_found_error import BoardNotFoundError
-from src.exceptions.boardcreationerror import BoardCreationError
-from src.exceptions.boarddeletionerror import BoardDeletionError
-from src.exceptions.existing_user_error import ExistingUserError
-from src.exceptions.existingboarderror import ExistingBoardError
 from src.exceptions.existingtaskerror import ExistingTaskError
 from src.exceptions.task_not_found_error import TaskNotFoundError
 from src.exceptions.taskcreationfailederror import TaskCreationFailedError
