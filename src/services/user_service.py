@@ -20,7 +20,7 @@ class UserService:
 
     @staticmethod
     def view_profile(email):
-        if not UserRepository.get_user_by_email(email):
-            raise UserNotFoundError(f'User {email} not found')
         user = UserRepository.get_user_by_email(email)
+        if not user:
+            raise UserNotFoundError(f'User {email} not found')
         return user.to_dict()
