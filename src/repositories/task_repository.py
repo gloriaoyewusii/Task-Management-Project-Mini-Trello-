@@ -1,4 +1,4 @@
-
+from src.exceptions.task_not_found_error import TaskNotFoundError
 from src.models.task import Task
 
 
@@ -29,4 +29,11 @@ class TaskRepository:
     @staticmethod
     def get_task_by_id(id_task):
         return Task.objects(id=id_task).first()
+
+    @staticmethod
+    def verify_task_exists(task_id):
+        task = TaskRepository.get_task_by_id(task_id)
+        if not task:
+            raise TaskNotFoundError(f'Task with the ID {task_id} not found')
+        return task
 
